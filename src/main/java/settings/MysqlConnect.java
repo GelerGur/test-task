@@ -15,11 +15,11 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 
 public class MysqlConnect {
 //52.48.85.114
-	static int nLocalPort = 3370; // local port number use to bind SSH tunnel
-	static int nRemotePort = 3306;
+	 int nLocalPort = 3370; // local port number use to bind SSH tunnel
+	 int nRemotePort = 3306;
 	
 	
-	private static String getPem(String fileName) throws IOException {
+	private  String getPem(String fileName) throws IOException {
 
 		StringBuilder result = new StringBuilder("");
 		File file = new File("src/main/resources/qaautomation.pem");
@@ -35,7 +35,7 @@ public class MysqlConnect {
 		return result.toString();
 	}
 
-	private static Session doSshTunnel(String strSshUser, String strSshPassword, String strSshHost, int nSshPort,
+	private  Session doSshTunnel(String strSshUser, String strSshPassword, String strSshHost, int nSshPort,
 			String strRemoteHost, int nLocalPort, int nRemotePort) throws JSchException, IOException {
 		final JSch jsch = new JSch();
 		jsch.addIdentity("privateKeyFile.pem", getPem("qaautomation.pem").getBytes(), null, null);
@@ -53,15 +53,13 @@ public class MysqlConnect {
 	
 
 
-	public static String readTable(String scriptSQL) throws JSchException, IOException {
+	public  String readTable(String scriptSQL) throws JSchException, IOException {
 		MysqlDataSource dataSource = new MysqlDataSource();
 		dataSource.setUser("root");
 		dataSource.setPassword("123456a");
-//		int nLocalPort = 3370; // local port number use to bind SSH tunnel
-//		int nRemotePort = 3306;
-//		System.out.println("1");
+
 		Session session = doSshTunnel("ubuntu", null, "52.48.85.114", 22, "localhost", nLocalPort, nRemotePort);
-//		System.out.println("2");
+
 		dataSource.setServerName("localhost");
 		dataSource.setDatabaseName("ostickets");
 		dataSource.setPort(nLocalPort);

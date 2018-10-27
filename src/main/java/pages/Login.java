@@ -9,16 +9,16 @@ public class Login extends WebDriverSettings{
 
 	
 	
-	static By loginLocator = By.cssSelector("#name");
-	static By passLocator = By.cssSelector("#pass");
-	static By submitLocator = By.cssSelector("[class='submit button pull-right']");
+	 By loginLocator = By.cssSelector("#name");
+	 By passLocator = By.cssSelector("#pass");
+	By submitLocator = By.cssSelector("[class='submit button pull-right']");
 	
-	public static String user = "devops";
-	public static String pass = "123456a";
+	public  String user = "devops";
+	public  String pass = "123456a";
 	
-	public static void login (String user, String pass) {
+	public  void login () {
 		
-		WebElement login = driver.findElement(loginLocator);
+		WebElement login =  driver.findElement(loginLocator);
 		login.click();
 		login.clear();
 		login.sendKeys(user); 

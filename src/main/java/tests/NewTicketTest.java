@@ -13,6 +13,7 @@ import pages.Login;
 import pages.OpenNewTicket;
 import pages.OpenTicketTab;
 import pages.WelcomePage;
+import settings.scriptSQL;
 
 
 public class NewTicketTest {
@@ -27,11 +28,9 @@ public class NewTicketTest {
 
 		  driver.get("http://safebreach-qa-test.dev.sbops.com/");
 		  driver.manage().window().maximize();
-		 // System.out.println("1");
 		  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		  driver.findElement(By.cssSelector("[href='open.php']"));
-		//  System.out.println("2");
-		  
+		 	  
 		  
 	  }
 
@@ -39,37 +38,45 @@ public class NewTicketTest {
 	
 	@Test(priority =1)
   public void addNewTicket() throws IOException {
-		WelcomePage.clickNewTicket();
-		OpenNewTicket.fillNewTicket();
-		OpenNewTicket.assertTicketCreated();
+		WelcomePage newTicket = new WelcomePage();
+		OpenNewTicket openNewTicket = new OpenNewTicket();
+		newTicket.clickNewTicket();
+		openNewTicket.fillNewTicket();
+		openNewTicket.assertTicketCreated();
 	}
 	
 	@Test (priority =2)
 	  public void checkNewTicketUI() throws IOException {
 		
 		driver.get("http://safebreach-qa-test.dev.sbops.com/scp/login.php");
-		Login.login(Login.user, Login.pass);
-		OpenTicketTab.findTicet();
+		
+		Login login = new Login();
+		login.login();
+		OpenTicketTab openTicketTab = new OpenTicketTab();
+		openTicketTab.findTicet();
 	}
 	
 	@Test(priority =3)
 	  public void checkIssueSummaryDB() throws IOException {
-		settings.scriptSQL.checkIssueSummary();
+		scriptSQL sql = new scriptSQL();	
+		sql.checkIssueSummary();
 	}
 	
 	@Test(priority =4)
 	  public void checkEmailDB() throws IOException {
-		settings.scriptSQL.checkEmail();
+		scriptSQL sql = new scriptSQL();	
+		sql.checkEmail();
 	}
 	@Test(priority =5)
 	  public void checkfullNameDB() throws IOException {
-		settings.scriptSQL.checkfullName();
+		scriptSQL sql = new scriptSQL();	
+		sql.checkfullName();
 	}
 	
 	@Test(priority =6)
 	  public void checkPhoneDB() throws IOException {
-		
-		settings.scriptSQL.checkPhone();
+		scriptSQL sql = new scriptSQL();			
+		sql.checkPhone();
 		
   }
 	
